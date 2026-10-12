@@ -46,7 +46,7 @@ With `skew = 0` it always quotes symmetrically around the mid (the naive market 
 
 Expected spread income per second on one side is `distance * P(fill)`. It peaks at `distance = 1/k = 0.01`: quoting tighter earns too little per trade, quoting wider loses too many trades. At the optimum, expected income is about **13 € per hour** (both sides).
 
-<!-- results/optimal_distance.png -->
+![Expected spread income by quote distance](results/optimal_distance.png)
 
 ### 2. The naive market maker: profitable on average, but risky
 
@@ -62,7 +62,9 @@ Expected spread income per second on one side is `distance * P(fill)`. It peaks 
 
 The average is close to the theoretical spread income of about 13 € (with a std of 14.5 €, the average itself is only known to within about ±1 €): with random traders, inventory gains and losses cancel out on average. But inventory drifts freely, and holding 40+ shares while the price moves makes the result swing as much as it earns.
 
-<!-- results/one_hour_naive.png: price, inventory and PnL over one hour -->
+The same simulated hour, with the same traders, for the naive market maker and one with an inventory skew of 0.002:
+
+![One hour: naive vs skewed market maker](results/one_hour_naive_vs_skew.png)
 
 ### 3. Inventory skew: much less risk for a little less profit
 
@@ -79,6 +81,8 @@ The average is close to the theoretical spread income of about 13 € (with a st
 | 0.005 | 11.66 | 0.61 | 19.10 | 0% | 9.62 | 3.1 |
 | 0.01 | 9.37 | 0.48 | 19.51 | 0% | 8.10 | 2.0 |
 | 0.02 | 2.23 | 0.36 | 6.19 | 0% | 1.19 | 1.0 |
+
+![Profit and risk by skew](results/skew_tradeoff.png)
 
 - A small skew (0.001–0.002) cuts risk by over 90% while keeping 93–95% of the profit.
 - Too much skew destroys profit: at 0.02, holding a single share already pushes the ask below the mid, so the market maker sells below fair value just to stay flat.
